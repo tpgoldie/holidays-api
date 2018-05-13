@@ -1,0 +1,31 @@
+databaseChangeLog:
+- changeSet:
+    id: 1
+    author: tpg
+    changes:
+    - createTable:
+        tableName: account
+        columns:
+        - column:
+            name: id
+            type: bigint
+            constraints:
+              primaryKey: true
+        - column:
+            name: title
+            type: TEXT
+        - column:
+            name: description
+            type: TEXT
+        - column:
+            name: available_from
+            type: datetime
+        - column:
+            name: available_to
+            type: datetime
+    - createSequence:
+        incrementBy: 1
+        minValue: 1000
+        ordered: true
+        sequenceName: holidays_seq
+        startValue: 1000
