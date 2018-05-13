@@ -7,6 +7,7 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 
@@ -41,10 +42,12 @@ public class HolidayEntity {
     private String reasonsToVisit;
 
     @Column(name = "available_from")
+    @NotNull
     @Convert(converter = ZonedDateTimeConverter.class)
     private ZonedDateTime availableFrom;
 
     @Column(name = "available_to")
+    @NotNull
     @Convert(converter = ZonedDateTimeConverter.class)
     private ZonedDateTime availableTo;
 }

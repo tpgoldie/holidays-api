@@ -5,6 +5,8 @@ import org.junit.Before;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import java.time.ZonedDateTime;
+
 import static javax.validation.Validation.buildDefaultValidatorFactory;
 
 public abstract class HolidayEntityPropertyValidationTest {
@@ -19,6 +21,8 @@ public abstract class HolidayEntityPropertyValidationTest {
 
         entity.setTitle("Hello");
         entity.setDescription("Hello");
+        entity.setAvailableFrom(ZonedDateTime.now());
+        entity.setAvailableTo(ZonedDateTime.now());
     }
 
     Validator validator;
