@@ -9,6 +9,7 @@ public interface HolidayEntityFixture {
         HolidayEntity entity = new HolidayEntity();
 
         entity.setTitle(title);
+        entity.setDescription(title);
         entity.setAvailableFrom(from);
         entity.setAvailableTo(to);
 

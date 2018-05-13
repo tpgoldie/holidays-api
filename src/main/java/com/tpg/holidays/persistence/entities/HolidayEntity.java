@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
@@ -30,8 +31,10 @@ public class HolidayEntity {
     @GeneratedValue(strategy=SEQUENCE, generator="holidays_seq_gen")
     private Long id;
 
+    @NotBlank
     private String title;
 
+    @NotBlank
     private String description;
 
     @Column(name = "reasons_to_visit")
