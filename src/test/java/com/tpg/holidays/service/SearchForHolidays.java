@@ -1,6 +1,5 @@
 package com.tpg.holidays.service;
 
-import com.tpg.holidays.model.Destination;
 import com.tpg.holidays.model.Holiday;
 import com.tpg.holidays.persistence.entities.HolidayEntity;
 import com.tpg.holidays.persistence.entities.HolidayEntityFixture;
@@ -11,7 +10,6 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
