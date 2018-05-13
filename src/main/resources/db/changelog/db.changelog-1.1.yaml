@@ -1,10 +1,10 @@
 databaseChangeLog:
 - changeSet:
-    id: 1
+    id: 2
     author: tpg
     changes:
     - createTable:
-        tableName: holidays
+        tableName: destinations
         columns:
         - column:
             name: id
@@ -12,20 +12,17 @@ databaseChangeLog:
             constraints:
               primaryKey: true
         - column:
-            name: title
+            name: name
             type: TEXT
         - column:
             name: description
             type: TEXT
         - column:
-            name: available_from
-            type: datetime
-        - column:
-            name: available_to
-            type: datetime
+            name: code
+            type: char(3)
     - createSequence:
         incrementBy: 1
         minValue: 1000
         ordered: true
-        sequenceName: holidays_seq
+        sequenceName: destinations_seq
         startValue: 1000
