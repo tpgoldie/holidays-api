@@ -3,7 +3,6 @@ package com.tpg.holidays.persistence.repositories;
 import com.tpg.holidays.context.PersistenceConfig;
 import com.tpg.holidays.persistence.entities.HolidayEntity;
 import com.tpg.holidays.persistence.entities.HolidayEntityFixture;
-import com.tpg.holidays.persistence.entities.ZonedDateTimeConverter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,9 +16,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -33,8 +32,8 @@ public class HolidaysQueryRepositoryImplTest implements HolidayEntityFixture {
     public void setUp() {
 
         List<HolidayEntity> entities = asList(
-            holidayEntity("holiday 1", NOW.minusDays(5), NOW.plusDays(10)),
-            holidayEntity("holiday 2", NOW.minusDays(4), NOW.minusHours(1))
+            holidayEntity("holiday 1", NOW.minusDays(3), NOW.plusDays(10)),
+            holidayEntity("holiday 2", NOW.minusDays(5), NOW)
         );
 
         entities.forEach(entity -> entityManager.persist(entity));
@@ -44,18 +43,12 @@ public class HolidaysQueryRepositoryImplTest implements HolidayEntityFixture {
     @Test
     public void searchByCheckinAndCheckout() {
 
-        ZonedDateTime checkIn = NOW.minusDays(10);
+        ZonedDateTime checkIn = NOW.minusDays(4);
 
-//        List<HolidayEntity> entities = Stream.of(1000L, 1001L)
-//                .map(id -> entityManager.find(HolidayEntity.class, id))
-//                .collect(toList()).stream().filter(he -> he.getAvailableFrom().isAfter(checkIn) &&
-//                    he.getAvailableTo().isBefore(NOW)).collect(toList());
+        List<HolidayEntity> found = repository.findByCheckInAndCheckoutDates(checkIn, NOW)
+                .collect(toList());
 
-        Stream<HolidayEntity> found = repository.findByCheckInAndCheckoutDates(
-                zonedDateTimeConverter.convertToDatabaseColumn(checkIn),
-                zonedDateTimeConverter.convertToDatabaseColumn(NOW));
-
-        assertEquals(1, found.count());
+        assertEquals(1, found.size());
     }
 
     private static final ZonedDateTime NOW = ZonedDateTime.now();
@@ -65,7 +58,4 @@ public class HolidaysQueryRepositoryImplTest implements HolidayEntityFixture {
 
     @Autowired
     private HolidaysQueryRepository repository;
-
-    @Autowired
-    private ZonedDateTimeConverter zonedDateTimeConverter;
 }

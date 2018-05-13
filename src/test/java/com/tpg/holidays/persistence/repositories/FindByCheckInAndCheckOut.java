@@ -37,8 +37,7 @@ public class FindByCheckInAndCheckOut {
 
     public FindByCheckInAndCheckOut findByCheckInAndCheckout(ZonedDateTime checkIn, ZonedDateTime checkOut) {
 
-        actual = repository.findByCheckInAndCheckoutDates(zonedDateTimeConverter.convertToDatabaseColumn(checkIn),
-                zonedDateTimeConverter.convertToDatabaseColumn(checkOut)).collect(toList());
+        actual = repository.findByCheckInAndCheckoutDates(checkIn, checkOut).collect(toList());
 
         return this;
     }
