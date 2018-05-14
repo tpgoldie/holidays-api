@@ -1,6 +1,8 @@
 package com.tpg.holidays.persistence.repositories;
 
 import com.tpg.holidays.context.PersistenceConfig;
+import com.tpg.holidays.persistence.entities.DestinationEntity;
+import com.tpg.holidays.persistence.entities.DestinationEntityFixture;
 import com.tpg.holidays.persistence.entities.HolidayEntity;
 import com.tpg.holidays.persistence.entities.HolidayEntityFixture;
 import org.junit.Before;
@@ -26,14 +28,18 @@ import static org.junit.Assert.assertEquals;
 @DataJpaTest
 @ActiveProfiles({"dev"})
 @Profile("dev")
-public class HolidaysQueryRepositoryImplTest implements HolidayEntityFixture {
+public class HolidaysQueryRepositoryTest implements DestinationEntityFixture, HolidayEntityFixture {
 
     @Before
     public void setUp() {
 
+        DestinationEntity destination = destinationEntity("LDN", "London", "London, the capital");
+
+        DestinationEntity savedDestination = entityManager.persist(destination);
+
         List<HolidayEntity> entities = asList(
-            holidayEntity("holiday 1", NOW.minusDays(3), NOW.plusDays(10)),
-            holidayEntity("holiday 2", NOW.minusDays(5), NOW)
+            holidayEntity("holiday 1", savedDestination, NOW.minusDays(3), NOW.plusDays(10)),
+            holidayEntity("holiday 2", savedDestination, NOW.minusDays(5), NOW)
         );
 
         entities.forEach(entity -> entityManager.persist(entity));
@@ -49,6 +55,7 @@ public class HolidaysQueryRepositoryImplTest implements HolidayEntityFixture {
                 .collect(toList());
 
         assertEquals(1, found.size());
+        assertEquals("London", found.get(0).getDestination().getName());
     }
 
     private static final ZonedDateTime NOW = ZonedDateTime.now();

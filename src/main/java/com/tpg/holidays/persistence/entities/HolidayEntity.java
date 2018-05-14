@@ -16,21 +16,17 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Entity
 @Table(name = "holidays")
 @GenericGenerator(
-        name = "holidays_seq_gen",
+        name = "seq_gen",
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {
-                @Parameter(name = "sequence_name", value = "seq_holidays"),
-                @Parameter(name = "initial_value", value = "1000"),
-                @Parameter(name = "increment_size", value = "1")
+            @Parameter(name = "sequence_name", value = "holidays_seq"),
+            @Parameter(name = "initial_value", value = "1000"),
+            @Parameter(name = "increment_size", value = "1")
         }
 )
 @Getter
 @Setter
-public class HolidayEntity {
-
-    @Id
-    @GeneratedValue(strategy=SEQUENCE, generator="holidays_seq_gen")
-    private Long id;
+public class HolidayEntity extends BaseEntity {
 
     @NotBlank
     private String title;
@@ -50,4 +46,9 @@ public class HolidayEntity {
     @NotNull
     @Convert(converter = ZonedDateTimeConverter.class)
     private ZonedDateTime availableTo;
+
+    @ManyToOne
+    @JoinColumn(name = "destination_id")
+    @NotNull
+    private DestinationEntity destination;
 }

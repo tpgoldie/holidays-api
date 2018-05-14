@@ -26,8 +26,7 @@ public class HolidayEntityDescriptionTest extends HolidayEntityPropertyValidatio
 
         ConstraintViolation<HolidayEntity> violation = violations.iterator().next();
 
-        assertEquals("may not be empty", violation.getMessage());
-        assertEquals("description", violation.getPropertyPath().toString());
+        assertPropertyViolation("description", "may not be empty", violation);
         assertEquals("", violation.getInvalidValue());
     }
 }

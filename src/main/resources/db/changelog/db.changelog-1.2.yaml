@@ -1,0 +1,17 @@
+databaseChangeLog:
+- changeSet:
+    id: 3
+    author: tpg
+    changes:
+    - addColumn:
+        tableName: holidays
+        columns:
+        - column:
+            name: destination_id
+            type: bigint
+    - addForeignKeyConstraint:
+        baseColumnNames: destination_id
+        baseTableName: holidays
+        constraintName: fk_destination_holiday
+        referencedColumnNames: id
+        referencedTableName: destinations

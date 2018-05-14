@@ -1,6 +1,8 @@
 package com.tpg.holidays.service;
 
 import com.tpg.holidays.model.Holiday;
+import com.tpg.holidays.persistence.entities.DestinationEntity;
+import com.tpg.holidays.persistence.entities.DestinationEntityFixture;
 import com.tpg.holidays.persistence.entities.HolidayEntity;
 import com.tpg.holidays.persistence.entities.HolidayEntityFixture;
 import com.tpg.holidays.persistence.repositories.HolidaysQueryRepository;
@@ -13,7 +15,7 @@ import java.util.stream.Stream;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
-public class SearchForHolidays implements HolidayEntityFixture {
+public class SearchForHolidays implements DestinationEntityFixture, HolidayEntityFixture {
 
     public static SearchForHolidays given() {
 
@@ -41,7 +43,9 @@ public class SearchForHolidays implements HolidayEntityFixture {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
 
-        HolidayEntity holiday = holidayEntity("Jury Inn Swindon", checkIn, checkOut);
+        DestinationEntity destination = destinationEntity("SDN", "Swindon", "Swindon");
+
+        HolidayEntity holiday = holidayEntity("Jury Inn Swindon", destination, checkIn, checkOut);
 
         Mockito.when(repository.findByCheckInAndCheckoutDates(checkIn, checkOut))
                     .thenReturn(Stream.of(holiday));

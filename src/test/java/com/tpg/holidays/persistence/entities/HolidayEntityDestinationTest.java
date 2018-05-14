@@ -7,26 +7,26 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-public class HolidayEntityTitleTest extends HolidayEntityPropertyValidationTest {
+public class HolidayEntityDestinationTest extends HolidayEntityPropertyValidationTest {
 
     @Test
-    public void validateTitle() {
-
+    public void validateDestination() {
+        
         Set<ConstraintViolation<HolidayEntity>> violations = validator.validate(entity);
         assertTrue(violations.isEmpty());
     }
 
     @Test
-    public void missingTitle() {
+    public void missingDestination() {
 
-        entity.setTitle("");
+        entity.setDestination(null);
 
         Set<ConstraintViolation<HolidayEntity>> violations = validator.validate(entity);
         assertFalse(violations.isEmpty());
 
         ConstraintViolation<HolidayEntity> violation = violations.iterator().next();
 
-        assertPropertyViolation("title", "may not be empty", violation);
-        assertEquals("", violation.getInvalidValue());
+        assertPropertyViolation("destination", "may not be null", violation);
+        assertNull(violation.getInvalidValue());
     }
 }

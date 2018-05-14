@@ -2,6 +2,7 @@ package com.tpg.holidays.service;
 
 import com.tpg.holidays.model.DateTimeFixture;
 import com.tpg.holidays.model.Holiday;
+import com.tpg.holidays.persistence.entities.DestinationEntityFixture;
 import com.tpg.holidays.persistence.entities.HolidayEntityFixture;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +11,7 @@ import java.time.ZonedDateTime;
 
 import static com.tpg.holidays.model.HolidayAssertion.assertThat;
 
-public class HolidayConverterTest implements DateTimeFixture, HolidayEntityFixture {
+public class HolidayConverterTest implements DateTimeFixture, DestinationEntityFixture, HolidayEntityFixture {
 
     @Before
     public void setUp() {
@@ -23,11 +24,11 @@ public class HolidayConverterTest implements DateTimeFixture, HolidayEntityFixtu
     @Test
     public void convert() {
 
-        Holiday actual = converter.convert(holidayEntity("Jury Inn, Swindon", "Swindon", checkIn, NOW));
+        Holiday actual = converter.convert(holidayEntity("Jury Inn, Swindon", destinationEntity("SDN", "Swindon", "Swindon"), checkIn, NOW));
 
         assertThat(actual)
                 .hasTitle("Jury Inn, Swindon")
-                .hasDescription("Swindon")
+                .hasDescription("Jury Inn, Swindon")
                 .hasCheckIn(checkIn)
                 .hasCheckOut(NOW);
     }
