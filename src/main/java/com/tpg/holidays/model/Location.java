@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public final class Child {
-
-    private final int age;
+public final class Location {
+    private final Address address;
+    private final String mapLink;
 }

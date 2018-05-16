@@ -5,14 +5,13 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-public interface DateTimeFixture {
+public interface DateTimeSpecification {
 
     DateTimeFormatter DD_MM_YYYY_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-    ZonedDateTime NOW = ZonedDateTime.now();
 
     default ZonedDateTime toZonedDateTime(String value) {
 
         return LocalDate.parse(value, DD_MM_YYYY_FORMATTER).atStartOfDay(ZoneId.systemDefault());
     }
+
 }

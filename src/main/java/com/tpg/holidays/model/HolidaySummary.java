@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public final class Child {
+public final class HolidaySummary {
 
-    private final int age;
+    private final Holiday holiday;
+    private final Hotel hotel;
 }
