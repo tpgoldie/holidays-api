@@ -4,11 +4,17 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Getter
 @Builder
 public final class Holiday {
+
+    public long getNumberOfNights() {
+
+        return ChronoUnit.DAYS.between(checkIn, checkOut);
+    }
 
     private final String title;
     private final Destination destination;

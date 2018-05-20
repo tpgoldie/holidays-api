@@ -1,6 +1,7 @@
 package com.tpg.holidays.wui.controllers;
 
-import com.tpg.holidays.model.*;
+import com.tpg.holidays.model.Child;
+import com.tpg.holidays.model.DateTimeFixture;
 import com.tpg.holidays.service.HolidaysQueryService;
 import com.tpg.holidays.service.HotelsQueryService;
 import org.junit.Before;
@@ -9,15 +10,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-
-import static com.tpg.holidays.model.HolidayAssertion.assertThat;
 import static com.tpg.holidays.wui.controllers.SearchForHolidays.given;
 import static java.util.Collections.singletonList;
-import static org.junit.Assert.assertEquals;
-import static org.springframework.http.HttpStatus.OK;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HolidaysQueryControllerTest implements DateTimeFixture {
@@ -35,7 +30,7 @@ public class HolidaysQueryControllerTest implements DateTimeFixture {
         given()
             .hotelsQueryService(hotelsQueryService)
             .holidaysQueryService(holidaysQueryService)
-                .holidaysQueryController(controller)
+            .holidaysQueryController(controller)
             .searchRequest(searchRequest)
         .when()
             .searchForHolidays()
