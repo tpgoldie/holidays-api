@@ -1,11 +1,13 @@
 package com.tpg.holidays.model;
 
-import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-@AllArgsConstructor
+@Setter
+@EqualsAndHashCode
 public final class Child {
 
-    private final int age;
+    private int age;
 }

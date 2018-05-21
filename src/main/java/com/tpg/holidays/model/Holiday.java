@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public final class Holiday {
+public final class Holiday implements DateTimeSpecification {
 
     private final String title;
     private final Destination destination;
@@ -19,4 +19,8 @@ public final class Holiday {
     private final int numberOfRooms;
     private final int numberOfAdults;
     private final List<Child> children;
+
+    public String getCheckIn() { return formatZonedDateTime(checkIn); }
+
+    public String getCheckOut() { return formatZonedDateTime(checkOut); }
 }

@@ -1,9 +1,11 @@
-package com.tpg.holidays.wui.controllers;
+package com.tpg.holidays.controllers;
 
 import com.tpg.holidays.model.*;
 import com.tpg.holidays.service.HolidayFixture;
 import com.tpg.holidays.service.HolidaysQueryService;
 import com.tpg.holidays.service.HotelsQueryService;
+import com.tpg.holidays.controllers.wui.SearchRequest;
+import org.assertj.core.api.Assertions;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
@@ -12,6 +14,7 @@ import java.util.List;
 
 import static com.tpg.holidays.model.Room.RoomType.DOUBLE;
 import static java.util.Collections.singletonList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
@@ -71,9 +74,14 @@ public class SearchForHolidays implements DateTimeFixture, HolidayFixture, Hotel
     }
 
     private List<Holiday> buildHolidays() {
+
         Destination destination = Destination.builder().name("Swindoni").code("SWD").description("Swindon Town").build();
 
-        return singletonList(holiday("Jury Inn, Swindon", "Lovely place", destination, checkIn, checkOut));
+        Child child = new Child();
+        child.setAge(12);
+
+        return singletonList(holiday("Jury Inn, Swindon", "Lovely place", destination, checkIn, checkOut,
+                1, 2, singletonList(child)));
     }
 
     private List<Hotel> buildHotels() {
@@ -104,7 +112,7 @@ public class SearchForHolidays implements DateTimeFixture, HolidayFixture, Hotel
 
     public SearchForHolidays holidaysFound() {
 
-        assertEquals(1, actual.getBody().size());
+        assertThat(actual.getBody().getSummaries().size()).isEqualTo(1);
 
         return this;
     }
@@ -117,5 +125,5 @@ public class SearchForHolidays implements DateTimeFixture, HolidayFixture, Hotel
     private ZonedDateTime checkIn;
     private ZonedDateTime checkOut;
 
-    private ResponseEntity<List<HolidaySummary>> actual;
+    private ResponseEntity<HolidaySummaries> actual;
 }

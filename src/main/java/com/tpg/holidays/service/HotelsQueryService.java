@@ -1,7 +1,7 @@
 package com.tpg.holidays.service;
 
 import com.tpg.holidays.model.Hotel;
-import com.tpg.holidays.wui.controllers.SearchRequest;
+import com.tpg.holidays.controllers.wui.SearchRequest;
 
 import java.util.List;
 

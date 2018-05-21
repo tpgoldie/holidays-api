@@ -14,4 +14,8 @@ public interface DateTimeSpecification {
         return LocalDate.parse(value, DD_MM_YYYY_FORMATTER).atStartOfDay(ZoneId.systemDefault());
     }
 
+    default String formatZonedDateTime(ZonedDateTime zonedDateTime) {
+
+        return zonedDateTime.format(DD_MM_YYYY_FORMATTER);
+    }
 }
