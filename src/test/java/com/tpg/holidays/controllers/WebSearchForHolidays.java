@@ -3,13 +3,12 @@ package com.tpg.holidays.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tpg.holidays.controllers.wui.SearchRequest;
 import com.tpg.holidays.model.*;
-import com.tpg.holidays.service.HolidayFixture;
 import com.tpg.holidays.service.HolidaysQueryService;
 import com.tpg.holidays.service.HotelsQueryService;
 import org.mockito.Mockito;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -19,8 +18,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -95,15 +92,17 @@ public class WebSearchForHolidays implements DateTimeFixture, HolidayFixture, Ho
         child.setAge(12);
 
         return singletonList(holiday("Jury Inn, Swindon", "Lovely place", destination, checkIn, checkOut,
-                1, 2, singletonList(child)));
+                1, 2, singletonList(12)));
     }
 
     private List<Hotel> buildHotels() {
 
         Address address = new Address("123 High Street", "", "Swindon", "Surrey", "SW10 1XS");
+        Location location = new Location(address, "http://abc/123");
 
-        return singletonList(hotel(new Location(address, "http://abc/123"),
-                singletonList(new Room(DOUBLE, 2, 1))));
+        return singletonList(hotel(location,
+                singletonList(new Room(DOUBLE, 2, 1)),
+                new BigDecimal("125.00")));
     }
 
     public WebSearchForHolidays then() { return this; }

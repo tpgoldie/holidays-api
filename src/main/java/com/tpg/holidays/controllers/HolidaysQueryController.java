@@ -5,22 +5,25 @@ import com.tpg.holidays.model.*;
 import com.tpg.holidays.service.HolidaysQueryService;
 import com.tpg.holidays.service.HotelsQueryService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 @RequestMapping("/holidays")
 public class HolidaysQueryController implements DateTimeSpecification {
 
-    @GetMapping(value = "/search", consumes = APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<HolidaySummaries> search(@RequestBody SearchRequest searchRequest) {
+    @PostMapping(value = "/search", consumes = APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<HolidaySummaries> search(@Valid @NotNull @RequestBody SearchRequest searchRequest) {
 
         List<Holiday> holidays = holidaysQueryService.searchHolidaysByCheckInAndCheckout(
                 toZonedDateTime(searchRequest.getCheckIn()),

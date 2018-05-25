@@ -23,6 +23,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Edgware.SR3</spring-cloud.version>
+		<fluentlenium.version>3.5.2</fluentlenium.version>
+		<selenium.version>3.12.0</selenium.version>
 	</properties>
 
 	<dependencies>
@@ -62,6 +64,11 @@
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-data-redis</artifactId>
+			<version>2.0.3.RELEASE</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -84,7 +91,11 @@
 			<version>3.7.4</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>io.lettuce</groupId>
+			<artifactId>lettuce-core</artifactId>
+			<version>5.0.4.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>com.mysema.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
@@ -105,6 +116,61 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.fluentlenium</groupId>
+			<artifactId>fluentlenium-core</artifactId>
+			<version>${fluentlenium.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.fluentlenium</groupId>
+			<artifactId>fluentlenium-junit</artifactId>
+			<version>${fluentlenium.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fluentlenium</groupId>
+			<artifactId>fluentlenium-assertj</artifactId>
+			<version>${fluentlenium.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-server</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-remote-common -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-remote-common</artifactId>
+			<version>2.0b1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.seleniumhq.webdriver</groupId>
+			<artifactId>webdriver-remote-client</artifactId>
+			<version>0.9.7376</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock</artifactId>
+			<version>2.17.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>ai.grakn</groupId>
+			<artifactId>redis-mock</artifactId>
+			<version>0.1.6</version>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -115,6 +181,12 @@
 				<version>${spring-cloud.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.fluentlenium</groupId>
+				<artifactId>fluentlenium-parent</artifactId>
+				<version>3.5.2</version>
+				<type>pom</type>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

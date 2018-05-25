@@ -1,24 +1,22 @@
 package com.tpg.holidays.controllers;
 
+import com.tpg.holidays.controllers.wui.SearchRequest;
 import com.tpg.holidays.model.*;
-import com.tpg.holidays.service.HolidayFixture;
 import com.tpg.holidays.service.HolidaysQueryService;
 import com.tpg.holidays.service.HotelsQueryService;
-import com.tpg.holidays.controllers.wui.SearchRequest;
-import org.assertj.core.api.Assertions;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 import static com.tpg.holidays.model.Room.RoomType.DOUBLE;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
-public class SearchForHolidays implements DateTimeFixture, HolidayFixture, HotelFixture {
+public class SearchForHolidays implements DateTimeFixture, HolidayFixture, HotelFixture, DestinationFixture {
 
     public static SearchForHolidays given() {
 
@@ -75,20 +73,20 @@ public class SearchForHolidays implements DateTimeFixture, HolidayFixture, Hotel
 
     private List<Holiday> buildHolidays() {
 
-        Destination destination = Destination.builder().name("Swindoni").code("SWD").description("Swindon Town").build();
+        Destination destination = destination("Swindoni","SWD","Swindon Town");
 
-        Child child = new Child();
-        child.setAge(12);
+        Holiday holiday = holiday("Jury Inn, Swindon", "Lovely place",
+                    destination, checkIn, checkOut, 3, 2, singletonList(12));
 
-        return singletonList(holiday("Jury Inn, Swindon", "Lovely place", destination, checkIn, checkOut,
-                1, 2, singletonList(child)));
+        return singletonList(holiday);
     }
 
     private List<Hotel> buildHotels() {
         Address address = new Address("123 High Street", "", "Swindon", "Surrey", "SW10 1XS");
 
         return singletonList(hotel(new Location(address, "http://abc/123"),
-                singletonList(new Room(DOUBLE, 2, 1))));
+                singletonList(new Room(DOUBLE, 2, 1)),
+                new BigDecimal(125)));
     }
 
     public SearchForHolidays then() { return this; }

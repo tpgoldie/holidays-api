@@ -10,14 +10,7 @@ import static java.util.stream.Collectors.toList;
 public interface SearchRequestFixture {
 
     default SearchRequest searchRequest(String destination, String checkIn, String checkOut, int numberOfAdults,
-                                        List<Integer> ages) {
-
-        SearchRequest searchRequest = new SearchRequest();
-
-        searchRequest.setDestination(destination);
-        searchRequest.setCheckIn(checkIn);
-        searchRequest.setCheckOut(checkOut);
-        searchRequest.setNumberOfAdults(numberOfAdults);
+                                        List<Integer> ages, int numberOfRooms) {
 
         List<Child> children = ages.stream().map(i -> {
             Child child = new Child();
@@ -26,8 +19,6 @@ public interface SearchRequestFixture {
             return child;
         }).collect(toList());
 
-        searchRequest.setChildren(children);
-
-        return searchRequest;
+        return new SearchRequest(destination, checkIn, checkOut, numberOfAdults, children, numberOfRooms);
     }
 }

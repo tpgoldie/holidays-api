@@ -20,7 +20,7 @@ public class HolidaysQueryControllerTest implements DateTimeFixture, SearchReque
     public void search() {
 
         SearchRequest searchRequest = searchRequest("Swindon", "01/08/2018", "07/08/2018",
-                2, singletonList(12));
+                2, singletonList(12),1);
 
         given()
             .hotelsQueryService(hotelsQueryService)

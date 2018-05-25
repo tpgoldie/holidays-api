@@ -4,6 +4,7 @@ import com.tpg.holidays.model.Holiday;
 import com.tpg.holidays.persistence.entities.HolidayEntity;
 import com.tpg.holidays.persistence.repositories.HolidaysQueryRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -20,6 +21,7 @@ public class HolidaysQueryServiceImpl implements HolidaysQueryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Holiday> searchHolidaysByCheckInAndCheckout(ZonedDateTime checkIn, ZonedDateTime checkOut) {
 
         Stream<HolidayEntity> found = repository.findByCheckInAndCheckoutDates(checkIn, checkOut);
